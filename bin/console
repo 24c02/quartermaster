@@ -1,0 +1,13 @@
+#!/usr/bin/env ruby
+
+require "bundler/setup"
+require "dotenv/load"
+
+require_relative "../app/api.rb"
+
+require "pry"
+
+$nora = Quartermaster::Person.find "rec5TFOw9pNNgRIKb"
+$hetzner = Quartermaster::ShopItem.find "recoVyKOW2IOa3Xqu"
+
+Pry.start(Quartermaster)

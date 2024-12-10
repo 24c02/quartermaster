@@ -1,0 +1,20 @@
+{
+  "builds": [
+    {
+      "src": "config.ru",
+      "use": "@vercel/ruby"
+    }
+  ],
+  "routes": [
+    {
+      "src": "/d/(.*)",
+      "dest": "config.ru"
+    }
+  ],
+  "crons": [
+    {
+      "path": "/d/crons/agh_nightlies",
+      "schedule": "0 3 * * 3"
+    }
+  ]
+}
