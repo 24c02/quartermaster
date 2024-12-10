@@ -18,6 +18,7 @@ module Quartermaster
       def order
         @order ||= ShopOrder.find(params[:id])
         error!('wrong env, ignoring', 200) unless !!@order["dev"] == (ENV["ENV"] == "DEV")
+        @order
       rescue Norairrecord::Error => e
         p e
         error!({ error: "order #{params[:id]} not found :-/" }, 404)
