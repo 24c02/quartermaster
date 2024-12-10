@@ -77,7 +77,7 @@ module Quartermaster
         transitions to: :error_fulfilling
         before do |error|
           self['error'] = error.message
-          Yap.post_to_ops "<@U06QK6AG3RD>: error fulfilling #{slack_url}!\n error was #{error.message} in #{error.backtrace}"
+          Yap.post_to_ops "<@U06QK6AG3RD>: error fulfilling #{slack_url}!\n error was #{error.message} in #{error.backtrace[..2]}"
         end
       end
 
