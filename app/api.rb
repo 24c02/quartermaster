@@ -25,6 +25,9 @@ module Quartermaster
       def authcronticate!
         error!("nope!", 401) unless headers["authorization"] == ENV["CRON_SECRET"]
       end
+      def airthenticate!
+        error!("nope!", 401) unless headers["authorization"] == ENV["AIRTABLE_SECRET"]
+      end
     end
     namespace :d do
       namespace :crons do
@@ -34,6 +37,7 @@ module Quartermaster
         end
       end
       resource :order do
+        before { airthenticate! }
         params do
           requires :id, type: String
         end
