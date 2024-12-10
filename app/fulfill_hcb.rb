@@ -4,6 +4,19 @@ module Quartermaster
     amount_cents = o.item['hcb_grant_amount_cents'] * o.order['quantity']
     email = o.order['hcb_email']
     allowed_merchants = o.item['hcb_grant_merchants']
+    
+    if o.order["dont_merge_hcb"]
+      grant = HCBAPI.create_card_grant(
+        email:,
+        allowed_merchants:,
+        amount_cents:
+      )
+
+      latest_disbursement = grant.disbursements[0].transaction_id
+      memo = "[grant] #{o.item['name']} for #{grant.user&.name || o.person.nice_full_name}"
+      HCBAPI.rename_transaction(hashid: latest_disbursement, new_memo: memo)
+      o.order.mark_fulfilled("https://hcb.hackclub.com/grants/#{grant.id[-6..]}")
+    end
 
     latest_disbursement = memo = nil
 
