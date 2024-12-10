@@ -103,10 +103,11 @@ module Quartermaster
         reject "you can't afford it... come back when you're a little... mmmmm.... richer." if order['tickets_paid'] > person['settled_tickets']
 
         if item['skip_manual_validation'] || ENV['FOR_REALZ'] == 'yeah!'
-          order.mark_in_flight!
+          order.mark_in_flight
         else
-          order.send_for_review!
+          order.send_for_review
         end
+        order.save
         "in_flight"
       rescue Reject => e
         order.reject! e.message
