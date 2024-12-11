@@ -14,7 +14,7 @@
   "crons": [
     {
       "path": "/d/crons/agh_nightlies",
-      "schedule": "0 3 * * 3"
+      "schedule": "0 7 * * 1-5"
     }
   ]
 }
