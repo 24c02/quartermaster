@@ -1,0 +1,47 @@
+#!/usr/bin/env ruby
+
+require "bundler/setup"
+require "dotenv/load"
+require_relative "../app/api.rb"
+
+include Quartermaster
+
+raise "item plz" unless ARGV[0]
+
+item = ShopItem.records(filter: "{identifier}='#{ARGV[0]}'").first
+raise "item not found" unless item
+
+puts "updating #{item['name']}...\n"
+
+orders = item.orders.select {|order| order['status'] == 'fulfilled'}
+
+hashids_to_update = []
+
+puts "gathering grant IDs from #{orders.length} orders:"
+
+orders.each do |order|
+  puts "\t#{order['identifier']}"
+  if order['external_ref'].start_with? 'https://hcb.hackclub.com'
+    hashids_to_update << id = 'cdg_' + order['external_ref'][-6..]
+    puts "\t\tsingle hashid #{id}"
+  else
+    cdg = order.cdg
+    if cdg
+      hashids_to_update << id = cdg['hcb_grant_hashid']
+      puts "\t\ttopupable hashid #{id}"
+    else
+      puts "\t\tcouldn't find hashid for #{order['identifier']}!"
+    end
+  end
+end
+
+puts "updating #{hashids_to_update.length} grants..."
+hashids_to_update.each do |hashid|
+  begin
+    HCBAPI.update_card_grant(hashid:, merchant_lock: item['hcb_grant_merchants'])
+    puts "\tupdated #{hashid}"
+  rescue HCBError => e
+    puts "\tcouldn't update #{hashid}! error: #{e.message}"
+    next
+  end
+end
