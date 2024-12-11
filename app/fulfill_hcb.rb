@@ -5,12 +5,12 @@ module Quartermaster
   def self.fulfill_hcb_grant(o)
     amount_cents = o.item['hcb_grant_amount_cents'] * o.order['quantity']
     email = o.order['hcb_email']
-    allowed_merchants = o.item['hcb_grant_merchants']
+    merchant_lock = o.item['hcb_grant_merchants']
 
     if o.order["dont_merge_hcb"]
       grant = HCBAPI.create_card_grant(
         email:,
-        allowed_merchants:,
+        merchant_lock:,
         amount_cents:
       )
 
@@ -31,7 +31,7 @@ module Quartermaster
           puts "creating grant for #{email} of #{amount_cents} cents with merchant lock #{allowed_merchants}..."
           grant = HCBAPI.create_card_grant(
             email:,
-            allowed_merchants:,
+            merchant_lock:,
             amount_cents:
           )
 

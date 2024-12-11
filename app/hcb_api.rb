@@ -14,8 +14,8 @@ Faraday::Response.register_middleware hcb_error: RaiseHCBErrorMiddleware
 
 class HCBAPI
   class << self
-    def create_card_grant(email:, amount_cents:, allowed_merchants: nil, category_lock: nil)
-      conn.post("organizations/#{@hcb_org_slug}/card_grants", email:, amount_cents:, category_lock:, merchant_lock: allowed_merchants).body
+    def create_card_grant(email:, amount_cents:, merchant_lock: nil, category_lock: nil, keyword_lock: nil)
+      conn.post("organizations/#{@hcb_org_slug}/card_grants", email:, amount_cents:, category_lock:, merchant_lock:, keyword_lock:).body
     end
 
     def topup_card_grant(hashid:, amount_cents:)
@@ -28,6 +28,10 @@ class HCBAPI
 
     def show_card_grant(hashid:)
       conn.get("card_grants/#{hashid}?expand=balance_cents,disbursements").body
+    end
+
+    def update_card_grant(hashid:, merchant_lock: nil, category_lock: nil, keyword_lock: nil)
+      conn.patch("card_grants/#{hashid}", {merchant_lock:, category_lock:, keyword_lock:}.compact).body
     end
 
     def show_stripe_card(hashid:)
