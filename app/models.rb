@@ -7,6 +7,8 @@ module Quartermaster
   class ShopItem < Norairrecord::Table
     self.base_key = "appTeNFYcUiYfGcR6"
     self.table_name = 'tblGChU9vC3QvswAV' # 'shop_items'
+
+    has_many :orders, class: "ShopOrder", column: "orders"
   end
 
   class ShopOrder < AirctsAsStateMachine
@@ -17,6 +19,7 @@ module Quartermaster
 
     belongs_to :recipient, class: "Quartermaster::Person", column: "recipient"
     has_one :item, class: "Quartermaster::ShopItem", column: "shop_item"
+    has_one :cdg, class: "Quartermaster::ShopCardGrant", column: "card_grant_rec"
 
     aasm column: 'status' do
       state :draft
