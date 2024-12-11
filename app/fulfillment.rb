@@ -31,5 +31,8 @@ module Quartermaster
       @item = order.item
       @recipient = order.recipient
     end
+    def self.from_id(id)
+      new(ShopOrder.find id)
+    end
   end
 end
