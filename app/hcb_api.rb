@@ -30,6 +30,10 @@ class HCBAPI
       conn.get("card_grants/#{hashid}?expand=balance_cents,disbursements").body
     end
 
+    def show_stripe_card(hashid:)
+      conn.get("cards/#{hashid}").body
+    end
+
     def conn
       hcb_api_token = ENV['HCB_API_TOKEN']
       @hcb_base_url = ENV['HCB_BASE_URL']
