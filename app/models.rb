@@ -124,7 +124,7 @@ module Quartermaster
 
   class ShopCardGrant < Norairrecord::Table
     self.base_key = "appTeNFYcUiYfGcR6"
-    self.table_name = "shop_card_grants"
+    self.table_name = "tblitljiz4cxhF5tr"
 
     def self.lookup_or_create(person, shop_item)
       records(filter: "{identifier}='cdg_#{person.id}_#{shop_item['identifier']}'", max_records: 1).first || self.new(
