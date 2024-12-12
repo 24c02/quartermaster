@@ -1,0 +1,17 @@
+#!/usr/bin/env ruby
+
+require "bundler/setup"
+require "launchy"
+require "dotenv/load"
+require_relative "../app/api.rb"
+
+include Quartermaster
+
+raise "slack ID plz" unless ARGV[0]
+
+person = Person.records(filter: "{slack_id}='#{ARGV[0]}'").first
+raise "person not found" unless person
+
+address = person.address
+
+Launchy.open(address['shiperizer']['url'])

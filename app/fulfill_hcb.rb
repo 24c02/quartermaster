@@ -28,7 +28,7 @@ module Quartermaster
     grant_rec.transaction do
       begin
         if grant_rec.new_record? || user_canceled
-          puts "creating grant for #{email} of #{amount_cents} cents with merchant lock #{allowed_merchants}..."
+          puts "creating grant for #{email} of #{amount_cents} cents with merchant lock #{merchant_lock}..."
           grant = HCBAPI.create_card_grant(
             email:,
             merchant_lock:,
