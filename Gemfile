@@ -34,3 +34,4 @@ gem "norairrecord", "~> 0.1.4"
 gem "aircts_as_state_machine", "~> 0.1.1"
 
 gem "launchy", "~> 3.0"
+gem "xsv", "~> 1.3"

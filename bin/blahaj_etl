@@ -1,0 +1,21 @@
+#!/usr/bin/env ruby
+
+require "bundler/setup"
+require "dotenv/load"
+require "xsv"
+
+require_relative "../app/api.rb"
+
+include Quartermaster
+
+raise "filename plz" unless ARGV[0]
+
+sheet = Xsv.open(ARGV[0], parse_headers: true).first
+
+sheet.each do |row|
+  order = ShopOrder.find row["Rubber Stamp 1"]
+  order["status"] = "fulfilled"
+  puts row["Tracking Number"]
+  order["tracking_number"] = row["Tracking Number"]
+  order.save
+end
