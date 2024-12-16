@@ -13,7 +13,6 @@ module Quartermaster
     "Germany",
     "Greece",
     "Hungary",
-    "Ireland",
     "Italy",
     "Latvia",
     "Lithuania",
