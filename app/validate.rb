@@ -85,7 +85,7 @@ module Quartermaster
                 item['enabled_ca']
               when *EU_COUNTRIES
                 item['enabled_eu']
-              when  "United Kingdom"
+              when  ["United Kingdom", "Ireland"]
                 item['enabled_uk']
               else
                 item['enabled_xx']
