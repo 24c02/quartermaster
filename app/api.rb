@@ -75,8 +75,9 @@ module Quartermaster
         end
         route_param :id do
           post '/ban' do
-            fuck_em_up_card_wise! person
-            fuck_em_up_order_wise! person
+            Quartermaster.fuck_em_up_card_wise! person
+            Quartermaster.fuck_em_up_order_wise! person
+            "it is done"
           end
         end
       end
