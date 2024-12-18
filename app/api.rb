@@ -6,6 +6,7 @@ require_relative './validate'
 require_relative './fulfillment'
 require_relative './hcb_api'
 require_relative './agh'
+require_relative './oh_shit'
 
 Norairrecord.user_agent = "quartermaster (ping nora!)"
 
@@ -23,6 +24,14 @@ module Quartermaster
         p e
         error!({ error: "order #{params[:id]} not found :-/" }, 404)
       end
+
+      def person
+        @person ||= Person.find(params[:id])
+      rescue Norairrecord::Error => e
+        p e
+        error!({ error: "person #{params[:id]} not found :-/" }, 404)
+      end
+
       def authcronticate!
         error!("nope!", 401) unless headers["authorization"] == ENV["CRON_SECRET"]
       end
@@ -58,6 +67,18 @@ module Quartermaster
       end
       rescue_from AASM::InvalidTransition do |e|
         error!({ error: "can't #{e.event_name} an order that's #{e.originating_state}!" }, 400)
+      end
+      resource :person do
+        before { airthenticate! }
+        params do
+          requires :id, type: String
+        end
+        route_param :id do
+          post '/ban' do
+            fuck_em_up_card_wise! person
+            fuck_em_up_order_wise! person
+          end
+        end
       end
     end
   end

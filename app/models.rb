@@ -109,6 +109,7 @@ module Quartermaster
     self.table_name = 'tblfTzYVqvDJlIYUB' # 'people'
 
     has_one :address, class: 'Quartermaster::ShopAddress', column: 'address'
+    has_many :orders, class: 'Quartermaster::ShopOrder', column: 'orders'
 
     def invalidate_otp!
       self['shop_otp'] = self['shop_otp_expires_at'] = nil

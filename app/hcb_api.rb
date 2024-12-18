@@ -38,6 +38,14 @@ class HCBAPI
       conn.get("cards/#{hashid}").body
     end
 
+    def cancel_card_grant!(hashid:)
+      conn.post("card_grants/#{hashid}/cancel").body
+    end
+
+    def index_card_grants
+      conn.get("organizations/#{@hcb_org_slug}/card_grants").body
+    end
+
     def conn
       hcb_api_token = ENV['HCB_API_TOKEN']
       @hcb_base_url = ENV['HCB_BASE_URL']
