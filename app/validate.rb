@@ -46,7 +46,8 @@ module Quartermaster
         freeze_address(order, person)
         person.invalidate_otp!
 
-        if person['shop_hold_all_orders']
+        if person['disciplinary_status'] == 'suspected'
+          Yap.post_to_ops("holding #{order.pretty_name} on account of they're #{['a sussy baka', 'a bit sus', 'acting sus', 'a little questionable :-P'].sample}")
           order['status'] = 'on_hold'
           order.save
           return 'eyyyyy'
