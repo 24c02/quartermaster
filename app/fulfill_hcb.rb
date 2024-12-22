@@ -18,6 +18,7 @@ module Quartermaster
       memo = "[grant] #{o.item['name']} for #{grant.user&.name || o.person.nice_full_name}"
       HCBAPI.rename_transaction(hashid: latest_disbursement, new_memo: memo)
       o.order.mark_fulfilled(ref: "https://hcb.hackclub.com/grants/#{grant.id[-6..]}")
+      return
     end
 
     latest_disbursement = memo = nil
