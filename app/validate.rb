@@ -46,6 +46,12 @@ module Quartermaster
         freeze_address(order, person)
         person.invalidate_otp!
 
+        if person['shop_hold_all_orders']
+          order['status'] = 'on_hold'
+          order.save
+          return 'eyyyyy'
+        end
+
         item_is_free_stickers = item.id == "recHByvKaaeXaGsPq"
 
         reject "you've already ordered some!" if item_is_free_stickers && person['free_stickers_dupe_check']
