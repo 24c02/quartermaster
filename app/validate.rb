@@ -111,7 +111,8 @@ module Quartermaster
         order.save
         "in_flight"
       rescue Reject => e
-        order.reject! e.message
+        order.reject e.message
+        order.save
         return "rejected"
       end
     end
