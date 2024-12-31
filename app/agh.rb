@@ -8,10 +8,10 @@ module Quartermaster
       }
     ]
     BONUS_INCLUDED_ITEMS = [
-      {
-        sku: "Gra/Can/Jap/Ran",
-        quantity: 1
-      }
+      # {
+      #   sku: "Gra/Can/Jap/Ran",
+      #   quantity: 1
+      # }
     ]
 
     class << self
