@@ -39,6 +39,7 @@ module Quartermaster
               order_ids = []
               add_candy = false
               contents = [*ALWAYS_INCLUDED_ITEMS]
+              contents += [["Sti/HS/Bun/Ar1"], ["Sti/HS/Bun/TB1"], ["Sti/HS/Bun/TB1", "Sti/HS/Bun/Ar1"]].sample if rand < 0.26
               addr_orders.each do |order|
                 o = EnrichedOrder.new(order)
                 add_candy = true unless o.item["no_candy"]
