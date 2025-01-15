@@ -4,6 +4,10 @@ module Quartermaster
     ALWAYS_INCLUDED_ITEMS = [
       {
         sku: "Sti/HS/Main/1st",
+        quantity: 3
+      },
+      {
+        sku: "Pri/HS/4x6/1st",
         quantity: 1
       }
     ]
