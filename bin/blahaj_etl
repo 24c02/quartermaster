@@ -9,7 +9,7 @@ require_relative "../app/api.rb"
 include Quartermaster
 
 raise "filename plz" unless ARGV[0]
-
+SHARK_MONEY = 9.99
 sheet = Xsv.open(ARGV[0], parse_headers: true).first
 
 sheet.each do |row|
@@ -17,5 +17,6 @@ sheet.each do |row|
   order["status"] = "fulfilled"
   puts row["Tracking Number"]
   order["tracking_number"] = row["Tracking Number"]
+  order['manual_dollar_cost'] = row['Cost'] + SHARK_MONEY
   order.save
 end
