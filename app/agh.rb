@@ -4,7 +4,7 @@ module Quartermaster
     ALWAYS_INCLUDED_ITEMS = [
       {
         sku: "Sti/HS/Main/1st",
-        quantity: 3
+        quantity: 5
       },
       {
         sku: "Pri/HS/4x6/1st",
@@ -44,6 +44,16 @@ module Quartermaster
               add_candy = false
               contents = [*ALWAYS_INCLUDED_ITEMS]
               contents += [["Sti/HS/Bun/Ar1"], ["Sti/HS/Bun/TB1"], %w[Sti/HS/Bun/TB1 Sti/HS/Bun/Ar1]].sample.map {|sku| { sku:, quantity: rand(1..2) }} if rand < 0.26
+              begin
+                person = Person.find(recipient)
+                if person['add_to_next_agh_run']
+                  contents += JSON.parse(person['add_to_next_agh_run'])
+                  person['add_to_next_agh_run'] = nil
+                  person.save
+                end
+              rescue NorairrecordError, JSON::ParserError => e
+                puts "#{e.message} when loading next agh for #{recipient}"
+              end
               addr_orders.each do |order|
                 o = EnrichedOrder.new(order)
                 add_candy = true unless o.item["no_candy"]
