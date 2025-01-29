@@ -6,12 +6,14 @@ module Quartermaster
     amount_cents = o.item['hcb_grant_amount_cents'] * o.order['quantity']
     email = o.order['hcb_email']
     merchant_lock = o.item['hcb_grant_merchants']
+    keyword_lock= item['hcb_grant_keyword_regex']
 
     if o.order["dont_merge_hcb"]
       grant = HCBAPI.create_card_grant(
         email:,
         merchant_lock:,
-        amount_cents:
+        amount_cents:,
+        keyword_lock:
       )
 
       latest_disbursement = grant.disbursements[0].transaction_id

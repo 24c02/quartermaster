@@ -38,7 +38,7 @@ end
 puts "updating #{hashids_to_update.length} grants..."
 hashids_to_update.each do |hashid|
   begin
-    HCBAPI.update_card_grant(hashid:, merchant_lock: item['hcb_grant_merchants'])
+    HCBAPI.update_card_grant(hashid:, merchant_lock: item['hcb_grant_merchants'], keyword_lock: item['hcb_grant_keyword_regex'])
     puts "\tupdated #{hashid}"
   rescue HCBError => e
     puts "\tcouldn't update #{hashid}! error: #{e.message}"
