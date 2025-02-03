@@ -20,8 +20,8 @@ module Quartermaster
     end
   end
 
-  def dummy_fulfill(o)
-    o.mark_fulfilled!(ref: ':3', quiet: true)
+  def self.dummy_fulfill(o)
+    o.mark_fulfilled(ref: ':3', quiet: true)
   end
   class EnrichedOrder
     attr_reader :recipient
