@@ -29,7 +29,7 @@ gem "faraday-mashify", "~> 0.1.1"
 
 gem "grover", "~> 1.2"
 
-gem "norairrecord", "~> 0.1.4"
+gem "norairrecord", "~> 0.2.0"
 
 gem "aircts_as_state_machine", "~> 0.1.1"
 
