@@ -9,6 +9,8 @@ module Quartermaster
               when "hcb_grant"; fulfill_hcb_grant(order)
               when "hq_mail", "third_party_physical", "third_party_virtual", "minuteman", "special", "agh", "agh_random_stickers"
                 source_order.queue
+              when "dummy"
+                dummy_fulfill(source_order)
               else
                 raise ArgumentError, "don't know how to fulfill a #{source_order['fulfillment_type']}!!"
               end
