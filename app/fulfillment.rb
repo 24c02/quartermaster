@@ -20,7 +20,7 @@ module Quartermaster
     end
   end
 
-  def self.dummy_fulfill(o)
+  def dummy_fulfill(o)
     o.mark_fulfilled!(ref: ':3', quiet: true)
   end
   class EnrichedOrder
