@@ -2,6 +2,7 @@ require_relative './fulfill_hcb'
 
 module Quartermaster
   def self.fulfill!(source_order)
+    return if source_order['person:freeze']
     begin
       source_order.transaction do
         order = EnrichedOrder.new(source_order)

@@ -26,6 +26,7 @@ module Quartermaster
           recipient_orders.group_by { |order| order["addr_seq"] }.each do |addr_seq, addr_orders|
             begin
               first_order = addr_orders.first
+              next if first_order['person:freeze']
               address = {
                 first_name: first_order["addr_first_name"],
                 last_name: first_order["addr_last_name"],
